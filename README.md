@@ -66,7 +66,7 @@ npm run dev
 
 ## ライセンス (License)
 
-MIT
+GPL-3.0
 
 ---
 
@@ -134,4 +134,4 @@ Open `http://localhost:3000` in your browser.
 
 ## License
 
-MIT
+GPL-3.0
