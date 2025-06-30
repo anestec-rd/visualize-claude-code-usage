@@ -192,20 +192,20 @@ def calculate_cost(token_stats):
     # Claude Sonnet 4の料金（例：実際の料金は公式サイトで確認）
     INPUT_TOKEN_COST = 0.000015   # $15 per 1M tokens
     OUTPUT_TOKEN_COST = 0.000075  # $75 per 1M tokens
-    CACHE_WRITE_COST = 0.0000075  # $7.5 per 1M tokens
+    CACHE_CREATION_COST = 0.0000075  # $7.5 per 1M tokens
     CACHE_READ_COST = 0.0000015   # $1.5 per 1M tokens
     
     input_cost = token_stats['total_input_tokens'] * INPUT_TOKEN_COST
     output_cost = token_stats['total_output_tokens'] * OUTPUT_TOKEN_COST
-    cache_write_cost = token_stats['total_cache_creation_tokens'] * CACHE_WRITE_COST
+    cache_creation_cost = token_stats['total_cache_creation_tokens'] * CACHE_CREATION_COST
     cache_read_cost = token_stats['total_cache_read_tokens'] * CACHE_READ_COST
     
-    total_cost = input_cost + output_cost + cache_write_cost + cache_read_cost
+    total_cost = input_cost + output_cost + cache_creation_cost + cache_read_cost
     
     return {
         'input_cost': input_cost,
         'output_cost': output_cost,
-        'cache_write_cost': cache_write_cost,
+        'cache_creation_cost': cache_creation_cost,
         'cache_read_cost': cache_read_cost,
         'total_cost': total_cost
     }

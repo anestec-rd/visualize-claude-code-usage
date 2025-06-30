@@ -29,7 +29,7 @@ During project development, the topic of ccusage (Claude Code Usage) emerged, wh
 - Detailed token usage breakdown (input/output/cache)
 - Model-specific usage statistics
 - Hourly usage distribution
-- Cost calculation (by input/output/cache write/read)
+- Cost calculation (by input/output/cache creation/read)
 - **Goal achieved**: Real-time usage status confirmation
 
 #### 3. Plan-specific Cost Simulation

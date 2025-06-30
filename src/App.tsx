@@ -942,7 +942,7 @@ function App() {
                         <strong>{language === 'ja' ? 'キャッシュ機能：' : 'Cache feature: '}</strong> {t('info.cacheFeature.description')}
                       </p>
                       <ul className="space-y-1">
-                        <li>• <strong>{language === 'ja' ? 'キャッシュ書込：' : 'Cache write: '}</strong> {t('info.cacheFeature.cacheWrite')}</li>
+                        <li>• <strong>{language === 'ja' ? 'キャッシュ作成トークン：' : 'Cache creation: '}</strong> {t('info.cacheFeature.cacheWrite')}</li>
                         <li>• <strong>{language === 'ja' ? 'キャッシュ読込：' : 'Cache read: '}</strong> {t('info.cacheFeature.cacheRead')}</li>
                         <li>• <strong>{language === 'ja' ? '効果：' : 'Effect: '}</strong> {t('info.cacheFeature.effect')}</li>
                       </ul>
