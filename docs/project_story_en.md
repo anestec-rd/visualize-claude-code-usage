@@ -212,7 +212,19 @@ Filtering, sorting, and pagination features enable efficient management and anal
 
 **Solution**: Implementation of calculation logic reflecting latest pricing information, support for cache functionality in cost calculations.
 
-### 5. Design and Usability Improvements
+### 5. Model Usage Analysis and Cost Calculation System Complexity
+**Challenge**:
+- **Complex pricing structures across different models**: Handling vastly different pricing schemes like Claude 4 Opus (input $15/1M, output $75/1M), Claude 4 Sonnet (input $3/1M, output $15/1M), and GPT-4 series ($30-60/1M) with accurate cost calculations
+- **Accurate aggregation of diverse token types**: Need to precisely distinguish and calculate four different token types - basic input/output tokens plus cache creation tokens (1.25x pricing) and cache read tokens (0.1x pricing)
+- **Model name variability and robust matching**: Multiple representation formats for the same model (e.g., `claude-4-sonnet`, `claude-sonnet-4`, `claude-sonnet-4-20250514`), requiring sophisticated pattern matching
+- **Usage pattern variations by purpose**: Different token usage ratios for various purposes (code generation, analysis, chat) making accurate statistical calculations challenging
+
+**Solution**: 
+- **Flexible pricing system management**: Structured pricing definitions using MODEL_PRICING object with robust model identification through partial matching
+- **Detailed cost breakdown calculations**: Individual tracking of input, output, cache write, and cache read costs with transparent calculation system verifiable through debug logs
+- **Comprehensive test cases**: Validation of calculation accuracy using diverse sample data covering different models, usage patterns, and token distributions
+
+### 6. Design and Usability Improvements
 **Challenge**:
 - Initial design was "too colorful and hard to see"
 - Header was too dark, "like a funeral"
@@ -224,7 +236,7 @@ Filtering, sorting, and pagination features enable efficient management and anal
 - Added sample data download functionality (including current period samples)
 - Enhanced multilingual support and localization
 
-### 6. Large Data Management and Display
+### 7. Large Data Management and Display
 **Challenge**:
 - Large amounts of period data from long-term usage history
 - Efficient data filtering and sorting
@@ -258,6 +270,13 @@ Designed with privacy protection as the top priority and with a secure architect
 - **Usage Pattern Analysis**: Analysis of hourly distribution and model-specific usage enables optimization of usage habits
 - **Privacy Protection**: All processing is completed within the browser and data is not transmitted externally, protecting privacy
 
+#### High-Precision Multi-Model Cost Analysis System
+- **Complete support for complex pricing structures**: Successfully implemented a calculation system that accurately reflects pricing schemes across multiple AI models (Claude 4 Opus, Sonnet, GPT-4 series) with up to 25x cost differences
+- **Accurate calculation of four token cost types**: Individual tracking and calculation of input, output, cache creation, and cache read tokens, each with different pricing (e.g., Sonnet: cache creation $3.75/1M, cache read $0.3/1M)
+- **Robust model identification system**: Comprehensive pattern matching functionality that handles diverse representations of the same model (`claude-4-sonnet`, `claude-sonnet-4-20250514`, etc.)
+- **Transparent cost breakdown**: High-reliability system with detailed cost calculation process visualization through debug logs, allowing users to verify calculation rationale
+- **Comprehensive quality assurance through test cases**: Continuous validation of calculation accuracy using diverse sample data covering various usage patterns (code generation, data analysis, chat, etc.)
+
 ## What we learned
 
 ### Technical Learnings
@@ -267,6 +286,10 @@ Designed with privacy protection as the top priority and with a secure architect
 - **Internationalization support**: Design patterns for multilingual applications
 - **Large data management**: Complexity of filtering, sorting, and pagination
 - **Privacy protection**: Design of browser-only applications
+- **Multi-model pricing system implementation**: Understanding the complexity of implementing systems that accurately reflect different AI model pricing structures (up to 25x difference between Claude Opus and Sonnet)
+- **Cost calculation accuracy**: Need to precisely distinguish and calculate four different token types with their respective pricing schemes
+- **Robust model identification**: Pattern matching techniques to handle multiple representation formats for the same model (`claude-4-sonnet`, `claude-sonnet-4-20250514`, etc.)
+- **Test data design importance**: Creating and maintaining diverse sample data to verify complex cost calculation logic and establishing continuous validation systems
 
 ### Design Learnings
 - **Importance of user feedback**: Value of honest opinions like "too colorful" and "too dark"
