@@ -285,6 +285,6 @@ ClaudeCodeの5時間リセットサイクルは理論的には理解していて
 
 ---
 
-*最終更新: 2025-01-XX*  
-*作成者: ClaudeCode + Human Collaboration*  
+*最終更新: 2025-06-30*  
+*作成者: Misa Sekine*  
 *開発プラットフォーム: Bolt.new*
