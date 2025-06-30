@@ -3,26 +3,26 @@ import { StoredFile } from './fileStorage';
 import { RESET_INTERVAL_HOURS, FALLBACK_BASE_TIME } from './constants';
 
 // モデル別の推定料金（1Mトークンあたり）- 2025年基準
-const MODEL_PRICING: { [key: string]: { input: number; output: number; cache_write: number; cache_read: number } } = {
+const MODEL_PRICING: { [key: string]: { input: number; output: number; cache_creation: number; cache_read: number } } = {
   // Claude 4 Opus
-  'claude-4-opus': { input: 15.0, output: 75.0, cache_write: 18.75, cache_read: 1.5 },
-  'claude-opus-4': { input: 15.0, output: 75.0, cache_write: 18.75, cache_read: 1.5 },
+  'claude-4-opus': { input: 15.0, output: 75.0, cache_creation: 18.75, cache_read: 1.5 },
+  'claude-opus-4': { input: 15.0, output: 75.0, cache_creation: 18.75, cache_read: 1.5 },
   
   // Claude 4 Sonnet
-  'claude-4-sonnet': { input: 3.0, output: 15.0, cache_write: 3.75, cache_read: 0.3 },
-  'claude-sonnet-4': { input: 3.0, output: 15.0, cache_write: 3.75, cache_read: 0.3 },
-  'claude-sonnet-4-20250514': { input: 3.0, output: 15.0, cache_write: 3.75, cache_read: 0.3 },
+  'claude-4-sonnet': { input: 3.0, output: 15.0, cache_creation: 3.75, cache_read: 0.3 },
+  'claude-sonnet-4': { input: 3.0, output: 15.0, cache_creation: 3.75, cache_read: 0.3 },
+  'claude-sonnet-4-20250514': { input: 3.0, output: 15.0, cache_creation: 3.75, cache_read: 0.3 },
   
   // OpenAI GPT-4（キャッシュ機能は仮定値）
-  'gpt-4': { input: 30.0, output: 60.0, cache_write: 37.5, cache_read: 3.0 },
-  'gpt-4-turbo': { input: 10.0, output: 30.0, cache_write: 12.5, cache_read: 1.0 },
-  'gpt-4o': { input: 5.0, output: 15.0, cache_write: 6.25, cache_read: 0.5 },
+  'gpt-4': { input: 30.0, output: 60.0, cache_creation: 37.5, cache_read: 3.0 },
+  'gpt-4-turbo': { input: 10.0, output: 30.0, cache_creation: 12.5, cache_read: 1.0 },
+  'gpt-4o': { input: 5.0, output: 15.0, cache_creation: 6.25, cache_read: 0.5 },
   
   // OpenAI GPT-3.5（キャッシュ機能は仮定値）
-  'gpt-3.5-turbo': { input: 0.5, output: 1.5, cache_write: 0.625, cache_read: 0.05 },
+  'gpt-3.5-turbo': { input: 0.5, output: 1.5, cache_creation: 0.625, cache_read: 0.05 },
   
   // デフォルト（Claude 4 Opus相当）
-  'default': { input: 15.0, output: 75.0, cache_write: 18.75, cache_read: 1.5 }
+  'default': { input: 15.0, output: 75.0, cache_creation: 18.75, cache_read: 1.5 }
 };
 
 export const parseCcusageFile = (fileContent: string): CcusageEntry[] => {
@@ -137,7 +137,7 @@ export const parseMultipleCcusageFiles = (files: StoredFile[]): CcusageEntry[] =
   return result;
 };
 
-const getModelPricing = (model: string): { input: number; output: number; cache_write: number; cache_read: number } => {
+const getModelPricing = (model: string): { input: number; output: number; cache_creation: number; cache_read: number } => {
   // 正確なモデル名でマッチング
   if (MODEL_PRICING[model]) {
     return MODEL_PRICING[model];
@@ -210,7 +210,7 @@ const calculateEstimatedCost = (
   const pricing = model ? getModelPricing(model) : MODEL_PRICING['default'];
   const inputCost = (inputTokens / 1000000) * pricing.input;
   const outputCost = (outputTokens / 1000000) * pricing.output;
-  const cacheWriteCost = (cacheCreationTokens / 1000000) * pricing.cache_write;
+  const cacheWriteCost = (cacheCreationTokens / 1000000) * pricing.cache_creation;
   const cacheReadCost = (cacheReadTokens / 1000000) * pricing.cache_read;
   const totalCost = inputCost + outputCost + cacheWriteCost + cacheReadCost;
   
