@@ -236,7 +236,7 @@ Filtering, sorting, and pagination features enable efficient management and anal
 - Added sample data download functionality (including current period samples)
 - Enhanced multilingual support and localization
 
-### 6. Large Data Management and Display
+### 7. Large Data Management and Display
 **Challenge**:
 - Large amounts of period data from long-term usage history
 - Efficient data filtering and sorting
